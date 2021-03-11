@@ -37,10 +37,18 @@ beforeEach(async () => {
     );
 
 });
-
+//Tests to test the campaigns contract
 describe('Campaigns', () => {
+
+    //TC:0001 - Test the deployment of both, factory and campaign contracts
     it('deploys a factory and a campaign contract', () => {
         assert.ok(factory.options.address);
         assert.ok(campaign.options.address);
+    })
+
+    //TC:0002 - Test that the user (manager) that creates the contract matches the actual address 
+    it('Marks the caller as the campaign manager', async () => {
+        const manager = await campaign.methods.manager().call();
+        assert.strictEqual(accounts[0], manager);
     })
 })
