@@ -14,7 +14,7 @@ fs.ensureDirSync(buildPath); // check if exists. Creates dir is false.
 // for each contract. create a contractName.json file within build directory
 for( let contract in output) {
     fs.outputJsonSync(
-        path.resolve(buildPath, contract.replace(':', '') + '.json' ),
-        output[contract]
+        path.resolve(buildPath, contract.replace(':', '') + '.json' ), // create the contract file to build path
+        output[contract] // write contents to contract into file
     );
 }

@@ -113,4 +113,143 @@ Structs
 - Have to initialise value types
 - Do not have to initialise reference type
 
+# Node Modules
+
+npm init
+npm install --save ganache-cli mocha 
+1. ganache-cli - used to boot local ethereum testnet with a provider property
+2. mocha - js testing library to test our contract
+3. fs-extra  -
+4. web3 - used to interact with solidity contract from javascript.
+
+# Front-End Application
+
+UI Requirements
+--------
+
+1. [HomePage] must contain logo
+2. [Homepage] must contain search box, to search for campaigns.
+3. [HomePage] must contain a list of all open campaigns. displaying the contracts address & more details button.
+4. [HomePage] must contain a 'create campaign' button.
+
+5. [CreateCampaignPage] - must display input box [minimumContribution]
+6. [CreateCampaignPage] - must display button to create campaign via factoryCampaign contract.
+
+7. [ViewCampaign] - Must display Campaign Balance
+8. [ViewCampaign] - Must display Campaign Minimum Contribution.8. 
+9. [ViewCampaign] - Must display Campaign Pending Requests.
+10. [ViewCampaign] - Must display input box[contibution]
+11. [ViewCampaign] - Must display button to contribute to campaign.
+11. [ViewCampaign] - Must display button to view pending requests.
+
+12. [PendingRequestsPage] - Must display a table with all pending requests
+13. [PendingRequestsPage] - Table must display properties: Id, Description, Amount Requested, Approval count, button[Approve], button[reject]
+14. [PendingRequestsPage] - Must display button to add requests.
+15. [PendingRequestsPage] - Must show total number of requests.
+
+16. [CreateRequestPage] - Must display input[description].
+17. [CreateRequestPage] - Must display input[requested-funds].
+18. [CreateRequestPage] - Must display input[vendorAddress].
+19. [CreateRequestPage] - Must display button that creates request. (Only Manager of campaign can execute this).
+
+# Application Routing
+
+[R1] -> '/' | List of campaigns
+[R2] -> 'campaings/new' | Form to make new campaign
+[R3] -> 'campaigns/0x8f345gr..' | Campaign details for campaign at address '0x8f345gr'
+[R4] -> 'campaigns/0x8f345gr../requests' | Requests for camapaign at address '0x8f345gr'
+[R5] -> 'campaigns/0x8f345gr../requests/new' | Form
+
+
+# Logic development steps for pages
+
+Campaign List Page
+-------------
+
+1. Configure web3 with a provider from metamask. Ref: [ethereum/web3.js]
+2. Tell web3 that a deployed copy of the 'campaignFactory' exits. Ref: [ethereum/factory.js]
+3. Use Factory instance to retrieve a list of deployed campaigns.
+4. Use React to show something about each campaign.
+
+
+# Potential Technology Stacks
+
+create-react-app
+----------
+ - Used for creating simple react applications. 
+ - Drawbacks - (By default, doesn't inc. navigation, data loading, etc...). 
+
+Next.js
+---------
+
+ - Next.js is a framework Wraps up React + associated tools into one package.
+ - Lots of fancy features included out of the box. Builds functionality around react. Features include:
+
+    - Routing.
+    - Server Side rendering.
+    - Hot module reload. (Update code inside application easily - developer experience.)
+
+ - Makes it really, really easy to use React to make a multi-page application.
+ - Resources: https://nextjs.org/
+
+- Next.js looks at react components within pages directory and creates webpages which users are directed to via routing.
+
+ # Next Set Up
+
+ install dependencies:
+
+ - npm install --save next@4.1.4 react react-dom
+ - To run project, create script within package.json and add alias for dev. Then run npm run dev.
+
+ # Additional Notes
+
+ - [Window-Not-Defined-Error] - This is caused as Next cannot access the window when rendering the html doc from server.
+
+ Process of Next.js
+ ----------------
+ 1. Our Code -> Next Server
+ 2. Next Server renders static HTML doc and serves to client browser. Thus, window undefined
+ 3. HTML Doc is parsed and displayed on within browser.
+ 4. Our code executes and updates page.
+
+ Note: We need to access Ethereum Network from server before code served to client. I.e. execute requests to network re Contracts.
+
+ Additionally, accomodates users who do not use MetaMask.
+ 
+
+# getInitialProps
+
+- Lifecycle method developed exclusively for Next. 
+- When Next boots up, it will loom at the Component.
+- It will execute the getInitialProps function before the rendering Component
+- It will retrieve the intial data and input into the Component and then Next will render the HTML Doc.
+- Then served to the clients browser.
+
+# Semantic UI React
+
+- React Component Kit - Library with bunch of pre created components. Come with styling already placed on them.
+
+Install -> npm install --save semantic-ui-react -> Elements
+Install -> npm install --save semantic-ui-css
+
+URL: https://react.semantic-ui.com/modules/checkbox/
+
+# Next.js - Does not support dynamic routing
+
+- Next.js does not support dynamic routing. I.e. a variables within the URI. e.g. [/campaigns/{variable}/requests].
+- Helper module: next-routes: dynamic routing helpers.
+
+npm install next-routes --save 
+
+- [server.js] - Boot up next app, tells it to use routes.js.
+
+- [routes.js] - Used to define custom routes with tokens inside the URI. I.e. [/campaigns/{variable}/requests].
+
+- [routes.js] - Export routing helpers that allow components to naviagte users around application.
+
+- Other routes will be handled via the default routing system included in next.js
+
+
+
+
 

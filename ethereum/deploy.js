@@ -11,6 +11,7 @@ const provider = new HDWalletProvider(
     'Infura API Key to connect the the Rinkeby Testnet via Infura Node'
 );
 
+//create instance of web3 by passing in the HDWallet-provider
 const web3 = new Web3(provider);
 
 const deploy = async () => {

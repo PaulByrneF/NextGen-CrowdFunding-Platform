@@ -1,4 +1,4 @@
-pragma solidity ^0.4.17;
+pragma solidity ^0.4.25;
 
 contract CampaignFactory {
     
@@ -19,6 +19,7 @@ contract CampaignFactory {
         return deployedCampaigns;
     }
 }
+
 contract Campaign {
     
     // Request struct definition: new type
@@ -30,6 +31,7 @@ contract Campaign {
         mapping(address => bool) approvals;
         uint approvalCount;
     }
+    
     // Initialise & Declare global variables
     Request[] public requests;
     address public manager;
@@ -108,7 +110,24 @@ contract Campaign {
         request.recipient.transfer(request.value);
         //Set the request to completed (true)
         request.complete = true;
-        
+    }
+
+    //gets the summary of details for campaign
+    function getSummary() public view returns (
+        uint, uint, uint, uint, address
+        ) {
+        return (
+            minContribution,
+            this.balance,
+            requests.length,
+            approversCount,
+            manager
+        );
+    }
+
+    //function getRequestsCount returns the total number of requests
+    function getRequestsCount() public view returns (uint) {
+        return requests.length;
     }
 
 }
